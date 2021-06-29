@@ -14,8 +14,9 @@ from torchvision.utils import save_image
 from pytorch_fid import fid_score
 from tqdm import tqdm
 
-import datasets
 import curriculums
+# import datasets
+from exp.pigan import datasets
 
 
 def output_real_images(dataloader, num_imgs, real_dir):
@@ -32,6 +33,8 @@ def output_real_images(dataloader, num_imgs, real_dir):
 def setup_evaluation(dataset_name, generated_dir, target_size=128, num_imgs=8000):
     # Only make real images if they haven't been made yet
     real_dir = os.path.join('EvalImages', dataset_name + '_real_images_' + str(target_size))
+    if os.path.exists(real_dir) and len(os.listdir(real_dir)) == 0:
+        os.rmdir(real_dir)
     if not os.path.exists(real_dir):
         os.makedirs(real_dir)
         dataloader, CHANNELS = datasets.get_dataset(dataset_name, img_size=target_size)
