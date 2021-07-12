@@ -41,7 +41,7 @@ def setup_evaluation(dataset_name, generated_dir, target_size=128, num_imgs=8000
         os.rmdir(real_dir)
     if not os.path.exists(real_dir):
         os.makedirs(real_dir)
-        dataloader, CHANNELS = datasets.get_dataset(dataset_name, img_size=target_size)
+        dataloader, CHANNELS = datasets.get_dataset(dataset_name, img_size=target_size, shuffle=False)
         print('outputting real images...')
         output_real_images(dataloader, num_imgs, real_dir)
         print('...done')
